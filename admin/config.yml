@@ -196,17 +196,17 @@ collections:
         name: f_price
         label: Price
         widget: number
-        required: false
+        required: true
       - hint: ''
         name: f_inventory
         label: Inventory
         widget: number
-        required: false
+        required: true
       - hint: ''
         name: f_quantity
         label: Quantity
         widget: number
-        required: false
+        required: true
       - hint: ''
         name: f_category
         label: Category
