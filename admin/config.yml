@@ -1,0 +1,736 @@
+backend:
+  name: git-gateway
+  accept_roles:
+    - admin
+    - editor
+media_folder: theme/assets/images
+public_folder: /assets/images
+collections:
+  - name: pages
+    label: Pages
+    identifier_field: title
+    extension: md
+    create: false
+    delete: false
+    slug: '{{slug}}'
+    editor:
+      preview: false
+    folder: cms/pages
+    fields:
+      - label: Title
+        name: title
+        widget: string
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '{{slug}}.html'
+      - &ref_0
+        label: Seo
+        name: seo
+        widget: object
+        collapsed: true
+        fields:
+          - label: Title
+            name: title
+            widget: string
+            required: false
+          - label: Description
+            name: description
+            widget: string
+            required: false
+          - label: No index
+            name: noindex
+            widget: boolean
+            default: false
+            required: false
+          - label: Open Graph Title
+            name: og:title
+            widget: string
+            required: false
+          - label: Open Graph Image
+            name: og:image
+            widget: image
+            required: false
+            media_library:
+              config:
+                multiple: false
+          - label: Twitter Title
+            name: twitter:title
+            widget: string
+            default: summary
+            required: false
+          - label: Twitter Card
+            name: twitter:card
+            widget: string
+            default: summary
+            required: false
+          - label: Twitter Site
+            name: twitter:site
+            widget: string
+            required: false
+          - label: Twitter Creator
+            name: twitter:creator
+            widget: string
+            required: false
+          - label: Additional HTML tags
+            name: additional_tags
+            widget: text
+            required: false
+  - name: precautions
+    label: Precautions
+    folder: cms/precautions
+    create: true
+    identifier_field: name
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - hint: ''
+        name: title
+        label: Name
+        widget: string
+        required: true
+      - hint: ''
+        name: created-on
+        label: Created On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: updated-on
+        label: Updated On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: published-on
+        label: Published On
+        widget: datetime
+        required: false
+      - label: List of precautions
+        name: body
+        widget: markdown
+        required: false
+      - hint: ''
+        name: f_category
+        label: Category
+        widget: select
+        required: false
+        options:
+          - label: Google Voice
+            value: Google Voice
+          - label: Google Voice super pretty number and Vanity
+            value: Google Voice super pretty number and Vanity
+          - label: IOS Mail
+            value: IOS Mail
+          - label: Apple ID
+            value: Apple ID
+          - label: Whatsapp
+            value: Whatsapp
+          - label: Facebook
+            value: Facebook
+          - label: Outlook Mail
+            value: Outlook Mail
+          - label: Yahoo Mail
+            value: Yahoo Mail
+          - label: AOL Mail
+            value: AOL Mail
+      - label: Tags
+        widget: hidden
+        name: tags
+        default: precautions
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '[precautions].html'
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - *ref_0
+  - name: projects
+    label: Projects
+    folder: cms/projects
+    create: true
+    identifier_field: name
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - hint: ''
+        name: title
+        label: Name
+        widget: string
+        required: true
+      - hint: ''
+        name: created-on
+        label: Created On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: updated-on
+        label: Updated On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: published-on
+        label: Published On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: f_image
+        label: image
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_price
+        label: Price
+        widget: number
+        required: false
+      - hint: ''
+        name: f_inventory
+        label: Inventory
+        widget: number
+        required: false
+      - hint: ''
+        name: f_quantity
+        label: Quantity
+        widget: number
+        required: false
+      - hint: ''
+        name: f_category
+        label: Category
+        widget: select
+        required: true
+        options:
+          - label: Google Voice
+            value: Google Voice
+          - label: Google Voice super pretty number and Vanity
+            value: Google Voice super pretty number and Vanity
+          - label: IOS Mail
+            value: IOS Mail
+          - label: Apple ID
+            value: Apple ID
+          - label: Whatsapp
+            value: Whatsapp
+          - label: Facebook
+            value: Facebook
+          - label: Outlook Mail
+            value: Outlook Mail
+          - label: Yahoo Mail
+            value: Yahoo Mail
+          - label: AOL Mail
+            value: AOL Mail
+      - hint: ''
+        name: f_precautions
+        label: Precautions
+        widget: relation
+        required: false
+        collection: precautions
+        value_field: cms/precautions/{{slug}}.md
+        search_fields:
+          - slug
+          - name
+        display_fields:
+          - title
+        multiple: false
+      - label: Tags
+        widget: hidden
+        name: tags
+        default: projects
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '[projects].html'
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - *ref_0
+  - label: Theme Settings
+    name: settings
+    identifier_field: title
+    extension: json
+    create: false
+    delete: false
+    slug: '{{slug}}'
+    editor:
+      preview: false
+    files:
+      - label: General
+        name: site
+        file: cms/_data/settings/site.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: General
+          - hint: Full domain url (needed for a correct sitemap file)
+            name: domain
+            label: Domain
+            widget: string
+            required: false
+          - name: favicon
+            label: Favicon
+            widget: image
+            allow_multiple: false
+            required: false
+          - name: apple_touch_icon
+            label: Apple Touch Icon
+            widget: image
+            allow_multiple: false
+            required: false
+          - name: header_additional_content
+            label: Additional Content Header
+            hint: Content here will be placed before </head> tag
+            widget: text
+            required: false
+          - name: footer_additional_content
+            label: Additional Content Footer
+            hint: Content here will be placed before </body> tag
+            widget: text
+            required: false
+          - name: images_optimization
+            label: Images Optimization
+            widget: object
+            collapsed: false
+            fields:
+              - label: Image Formats
+                name: formats
+                widget: select
+                multiple: true
+                options:
+                  - label: Avif
+                    value: avif
+                  - label: Webp
+                    value: webp
+              - label: Image Dimensions
+                name: dimensions
+                widget: select
+                multiple: true
+                options:
+                  - label: '500'
+                    value: 500
+                  - label: '800'
+                    value: 800
+                  - label: '1080'
+                    value: 1080
+                  - label: '1600'
+                    value: 1600
+                  - label: '2000'
+                    value: 2000
+                  - label: '2600'
+                    value: 2600
+      - label: Colors
+        name: colors
+        file: cms/_data/colors.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Colors
+      - label: Texts
+        name: texts
+        file: cms/_data/texts.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Texts
+          - hint: 'Original text: Gv邦蒂·罗伊, key: -581f6c41'
+            label: Text
+            name: '-581f6c41'
+            widget: string
+          - hint: 'Original text: Buy, key: 10666'
+            label: Text
+            name: '10666'
+            widget: string
+          - hint: 'Original text: Check Out, key: -70e3fc0a'
+            label: Text
+            name: '-70e3fc0a'
+            widget: string
+          - hint: 'Original text: Contact, key: -64104400'
+            label: Text
+            name: '-64104400'
+            widget: string
+          - hint: >-
+              Original text: Do you want to buy Google voice accounts?, key:
+              -58e38dd7
+            label: Text
+            name: '-58e38dd7'
+            widget: string
+          - hint: >-
+              Original text: We have nice packages, and payment methods include
+              BTC-USDT TRC20- PERFECT MONEY. , key: -67b8eee8
+            label: Text
+            name: '-67b8eee8'
+            widget: string
+          - hint: 'Original text: I look forward to working with you., key: -7539a746'
+            label: Text
+            name: '-7539a746'
+            widget: string
+          - hint: 'Original text: Telegram customer service, key: -7b61a26e'
+            label: Text
+            name: '-7b61a26e'
+            widget: string
+          - hint: 'Original text: Telegram Group, key: -5f43b560'
+            label: Text
+            name: '-5f43b560'
+            widget: string
+          - hint: 'Original text: ‍, key: 200d'
+            label: Text
+            name: 200d
+            widget: string
+          - hint: 'Original text: Whatsapp number, key: 49f40977'
+            label: Text
+            name: 49f40977
+            widget: string
+          - hint: 'Original text: Skype: live:.cid.f7a951acb8caa359, key: 2f8fe13d'
+            label: Text
+            name: 2f8fe13d
+            widget: string
+          - hint: 'Original text: Buy Google Voice, key: -2b9b7fb'
+            label: Text
+            name: '-2b9b7fb'
+            widget: string
+          - hint: 'Original text: Product Name, key: 42bb235c'
+            label: Text
+            name: 42bb235c
+            widget: string
+          - hint: 'Original text: Shipping Mode, key: 4c794cd5'
+            label: Text
+            name: 4c794cd5
+            widget: string
+          - hint: 'Original text: In Stock, key: -6a79a3a5'
+            label: Text
+            name: '-6a79a3a5'
+            widget: string
+          - hint: 'Original text: Quantity, key: -48bd3755'
+            label: Text
+            name: '-48bd3755'
+            widget: string
+          - hint: 'Original text: Price, key: 49cc129'
+            label: Text
+            name: 49cc129
+            widget: string
+          - hint: 'Original text: Operate, key: 17efa164'
+            label: Text
+            name: 17efa164
+            widget: string
+          - hint: 'Original text: Automatic, key: -24cbadf5'
+            label: Text
+            name: '-24cbadf5'
+            widget: string
+          - hint: 'Original text: No items found., key: 3d503d2b'
+            label: Text
+            name: 3d503d2b
+            widget: string
+          - hint: >-
+              Original text: Buy Google Voice Pretty Number and Vanity, key:
+              -db7df04
+            label: Text
+            name: '-db7df04'
+            widget: string
+          - hint: 'Original text: Buy IOS Mail, key: -769d995c'
+            label: Text
+            name: '-769d995c'
+            widget: string
+          - hint: 'Original text: Buy Apple ID, key: 51bc183b'
+            label: Text
+            name: 51bc183b
+            widget: string
+          - hint: 'Original text: Buy US Whatsapp, key: -457501c6'
+            label: Text
+            name: '-457501c6'
+            widget: string
+          - hint: 'Original text: Buy Facebook ID, key: -4c6a6625'
+            label: Text
+            name: '-4c6a6625'
+            widget: string
+          - hint: 'Original text: Buy Outlook Mail, key: 2889cac4'
+            label: Text
+            name: 2889cac4
+            widget: string
+          - hint: 'Original text: Buy Yahoo Mail, key: 7ab31bd1'
+            label: Text
+            name: 7ab31bd1
+            widget: string
+          - hint: 'Original text: Buy Aol Mail, key: 11c98f53'
+            label: Text
+            name: 11c98f53
+            widget: string
+          - hint: 'Original text: Automatic Shipping, key: -dad13bd'
+            label: Text
+            name: '-dad13bd'
+            widget: string
+          - hint: "Original text: Inventory:\_, key: 4758e1e2"
+            label: Text
+            name: 4758e1e2
+            widget: string
+          - hint: "Original text: \_I Qty:\_, key: 3da9fd85"
+            label: Text
+            name: 3da9fd85
+            widget: string
+          - hint: "Original text: \_I\_, key: 26217"
+            label: Text
+            name: '26217'
+            widget: string
+          - hint: 'Original text: $, key: 24'
+            label: Text
+            name: '24'
+            widget: string
+          - hint: >-
+              Original text: Buy Google Voice super pretty number and Vanity,
+              key: -521e3a3f
+            label: Text
+            name: '-521e3a3f'
+            widget: string
+          - hint: 'Original text: Buy OutlookMail, key: 647c4b6a'
+            label: Text
+            name: 647c4b6a
+            widget: string
+          - hint: 'Original text: Buy AOL Mail, key: 3e671353'
+            label: Text
+            name: '3e671353'
+            widget: string
+          - hint: 'Original text: Inventory: , key: 4758e162'
+            label: Text
+            name: '4758e162'
+            widget: string
+          - hint: 'Original text: Price: , key: 5071220f'
+            label: Text
+            name: 5071220f
+            widget: string
+          - hint: "Original text: Quantity: \_, key: 44b6d1af"
+            label: Text
+            name: 44b6d1af
+            widget: string
+          - hint: 'Original text: Email, key: 3ff5b7c'
+            label: Text
+            name: 3ff5b7c
+            widget: string
+          - hint: 'Original text: Payment Method, key: 4ba78c7b'
+            label: Text
+            name: 4ba78c7b
+            widget: string
+          - hint: 'Original text: Select Payment Method, key: -47412801'
+            label: Text
+            name: '-47412801'
+            widget: string
+          - hint: 'Original text: BTC, key: 10231'
+            label: Text
+            name: '10231'
+            widget: string
+          - hint: 'Original text: USDT TRC 20, key: 4c90336b'
+            label: Text
+            name: 4c90336b
+            widget: string
+          - hint: 'Original text: Perfect Money, key: 139636ad'
+            label: Text
+            name: 139636ad
+            widget: string
+          - hint: >-
+              Original text: Thank you! Your submission has been received!, key:
+              5a0ea5a1
+            label: Text
+            name: 5a0ea5a1
+            widget: string
+          - hint: >-
+              Original text: Oops! Something went wrong while submitting the
+              form., key: -7c112e99
+            label: Text
+            name: '-7c112e99'
+            widget: string
+          - hint: 'Original text: Product Description, key: 55167e0b'
+            label: Text
+            name: 55167e0b
+            widget: string
+          - hint: 'Original text: Disclaimer , key: -7dad1a3b'
+            label: Text
+            name: '-7dad1a3b'
+            widget: string
+          - hint: 'Original text: Order Summary , key: -69ebd1f4'
+            label: Text
+            name: '-69ebd1f4'
+            widget: string
+          - hint: 'Original text: Order ID, key: 4d6b734d'
+            label: Text
+            name: 4d6b734d
+            widget: string
+          - hint: 'Original text: Order Name, key: -5fa16ba3'
+            label: Text
+            name: '-5fa16ba3'
+            widget: string
+          - hint: 'Original text: Unit Price, key: -5f4fa853'
+            label: Text
+            name: '-5f4fa853'
+            widget: string
+          - hint: 'Original text: Total Amount, key: -2671570c'
+            label: Text
+            name: '-2671570c'
+            widget: string
+          - hint: 'Original text: GVB-, key: 21915a'
+            label: Text
+            name: 21915a
+            widget: string
+          - hint: 'Original text: 2343242, key: -510c8e50'
+            label: Text
+            name: '-510c8e50'
+            widget: string
+          - hint: 'Original text: New Google Voice, key: 2eaa772b'
+            label: Text
+            name: 2eaa772b
+            widget: string
+          - hint: 'Original text: 435, key: c996'
+            label: Text
+            name: c996
+            widget: string
+          - hint: 'Original text: 12.00, key: 2c9eced'
+            label: Text
+            name: 2c9eced
+            widget: string
+          - hint: 'Original text: 1, key: 31'
+            label: Text
+            name: '31'
+            widget: string
+          - hint: 'Original text: Perfect Money Details, key: 7b765faf'
+            label: Text
+            name: 7b765faf
+            widget: string
+          - hint: 'Original text: Account Number, key: -4ba1eb24'
+            label: Text
+            name: '-4ba1eb24'
+            widget: string
+          - hint: 'Original text: Recipient''s Name, key: 4df42906'
+            label: Text
+            name: 4df42906
+            widget: string
+          - hint: 'Original text: Description, key: -360d424'
+            label: Text
+            name: '-360d424'
+            widget: string
+          - hint: 'Original text: U36635079, key: 74327e72'
+            label: Text
+            name: '74327e72'
+            widget: string
+          - hint: 'Original text: Joy Roy, key: eaff750'
+            label: Text
+            name: eaff750
+            widget: string
+          - hint: 'Original text: BTC Details, key: 152f6733'
+            label: Text
+            name: 152f6733
+            widget: string
+          - hint: 'Original text: Address, key: 1ed033d4'
+            label: Text
+            name: 1ed033d4
+            widget: string
+          - hint: 'Original text: Network, key: -2ee60df2'
+            label: Text
+            name: '-2ee60df2'
+            widget: string
+          - hint: 'Original text: 3JHvZKwWqhTBoK4guhEZDMGznA2KT95bv8, key: 341c3b4e'
+            label: Text
+            name: 341c3b4e
+            widget: string
+          - hint: 'Original text: USDT Details, key: 1a4f7bb0'
+            label: Text
+            name: 1a4f7bb0
+            widget: string
+          - hint: 'Original text: TVBfaX2DF6kBxevEJMegDjXwpY9zQpES57, key: -4423b84b'
+            label: Text
+            name: '-4423b84b'
+            widget: string
+          - hint: 'Original text: TRC 20, key: -6c067147'
+            label: Text
+            name: '-6c067147'
+            widget: string
+      - label: Links
+        name: links
+        file: cms/_data/links.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Links
+          - hint: 'Original link: /, key: 2f'
+            label: Link
+            name: 2f
+            widget: string
+          - hint: 'Original link: #, key: 23'
+            label: Link
+            name: '23'
+            widget: string
+          - hint: 'Original link: https://t.me/+1TcqKHcHjzk1MjZh, key: 3efba51'
+            label: Link
+            name: 3efba51
+            widget: string
+          - hint: 'Original link: https://t.me/googlevoicebantir, key: -3b2ce3e7'
+            label: Link
+            name: '-3b2ce3e7'
+            widget: string
+          - hint: 'Original link: https://wa.me/qr/UZKBKPNTSNUPL1, key: -528ab692'
+            label: Link
+            name: '-528ab692'
+            widget: string
+          - hint: 'Original link: #http://googlevoicebanti.com, key: -64d0813'
+            label: Link
+            name: '-64d0813'
+            widget: string
+      - label: Images
+        name: images
+        file: cms/_data/images.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Images
+          - label: Image
+            name: '-7f4146a'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-a28344e'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 4b631203
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+publish_mode: editorial_workflow
