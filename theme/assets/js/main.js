@@ -12,7 +12,7 @@ let idGenerator = Math.floor(Math.random() * 1000000) + 1;
 
 
 submitButton?.addEventListener("submit", (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     orderID.value = idGenerator;
    let successData = {
         productName: productName.textContent,
