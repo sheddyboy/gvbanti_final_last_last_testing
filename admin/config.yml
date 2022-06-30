@@ -235,7 +235,7 @@ collections:
         name: f_precautions
         label: Precautions
         widget: relation
-        required: false
+        required: true
         collection: precautions
         value_field: cms/precautions/{{slug}}.md
         search_fields:
