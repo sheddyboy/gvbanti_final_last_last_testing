@@ -7,7 +7,7 @@ f_image:
   url: https://uploads-ssl.webflow.com/62bac03c43a108e7ee1f1de4/62bac03c43a1087e3b1f1e01_download1.png
   alt: null
 f_price: 5
-f_inventory: 372
+f_inventory: 612
 f_quantity: 1
 layout: "[projects].html"
 slug: new-google-voice
