@@ -6,7 +6,7 @@ published-on: 2022-06-30T08:00:22.964Z
 f_image:
   url: https://uploads-ssl.webflow.com/62bac03c43a108e7ee1f1de4/62bac03c43a1087e3b1f1e01_download1.png
   alt: null
-f_price: 5
+f_price: 4.5
 f_inventory: 612
 f_quantity: 1
 layout: "[projects].html"
