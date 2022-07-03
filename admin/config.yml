@@ -196,7 +196,7 @@ collections:
         name: f_price
         label: Price
         widget: number
-        required: true
+        required: false
       - hint: ''
         name: f_inventory
         label: Inventory
