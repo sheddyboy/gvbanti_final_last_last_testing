@@ -5,6 +5,7 @@ let inputQuantity = document.querySelector(".co_input_quantity");
 let submitButton = document.querySelector("#email-form");
 let paymentMethod = document.querySelector("#field-4");
 let orderID = document.querySelector("#orderID");
+let orderName = document.querySelector("#orderName");
 
 let idGenerator = Math.floor(Math.random() * 1000000) + 1;
 
@@ -14,6 +15,7 @@ let idGenerator = Math.floor(Math.random() * 1000000) + 1;
 submitButton?.addEventListener("submit", (e) => {
     // e.preventDefault();
     orderID.value = idGenerator;
+    orderName.value = productName.textContent;
    let successData = {
         productName: productName.textContent,
         productPrice: productPrice.textContent,
@@ -26,4 +28,4 @@ submitButton?.addEventListener("submit", (e) => {
     localStorage.setItem("successData", JSON.stringify(successData));   
     
     window.location.href = "/success"
-});
+}); 

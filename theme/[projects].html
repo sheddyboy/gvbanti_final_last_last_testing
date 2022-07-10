@@ -42,6 +42,7 @@
               </div>
               <input type="hidden" name="subject" value="Order Details">
               <input type="hidden" id="orderID" name="orderid">
+              <input type="hidden" id="orderName" name="ordername">
               <div><label for="field-4" class="field-label testing">{{ texts.44b6d1af }}</label>
                 <p id="co_Quantity" class="co_quantity">{{ f_quantity }}</p>
               </div><input type="number" class="co_input_quantity w-input" maxlength="256" name="quantity" data-name="Field 3" placeholder="" id="field-3" required=""><label for="field-2" class="field-label-2">{{ texts.3ff5b7c }}</label><input type="email" class="co_input_email w-input" maxlength="256" name="email" data-name="Field 2" placeholder="" id="field-2" required=""><label for="field-4" class="field-label-3">{{ texts.4ba78c7b }}</label><select id="field-4" name="payment" data-name="Field 4" required="" class="w-select">
@@ -65,7 +66,7 @@
             <p><strong>{{ texts.-7dad1a3b }}</strong></p>
             {%- assign precautionsOfProjects = f_precautions | resolveReference -%}<div class="disclaimer w-richtext">{{ precautionsOfProjects.templateContent | markdown | markdown }}</div>
           </div>
-        </div>
+        </div> 
       </div>
     </div>
   </div>
